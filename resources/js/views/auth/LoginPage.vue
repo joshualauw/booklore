@@ -90,6 +90,7 @@ export default {
                 email: email.value,
                 password: password.value,
             });
+            router.push({ name: "home" });
         };
 
         return {

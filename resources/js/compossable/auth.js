@@ -18,12 +18,12 @@ export default function useAuth() {
                 data
             );
             isLoading.value = false;
+            alert("Login succesful!");
             errors.value = [];
             //set authentication data to session storage
             sessionStorage.setItem("user", JSON.stringify(res.data));
             user.value = res.data.user;
             axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
-            router.push({ name: "home" });
         } catch (err) {
             const errorsTemp = err.response.data.errors;
             errors.value = [];
@@ -39,7 +39,6 @@ export default function useAuth() {
         try {
             await axios.post("http://127.0.0.1:8000/api/register", data);
             isLoading.value = false;
-            router.push({ name: "login" });
             alert("Account succesfully registered!");
         } catch (err) {
             const errorsTemp = err.response.data.errors;

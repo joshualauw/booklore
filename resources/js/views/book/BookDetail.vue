@@ -227,11 +227,7 @@
                 <div
                     class="p-6 bg-lightgray rounded-lg h-full relative flex flex-col justify-center items-start space-x-0 space-y-4 md:space-x-5 md:space-y-0 md:flex-row"
                 >
-                    <router-link
-                        :to="{ name: 'login' }"
-                        class="p-3 text-white bg-primary rounded-lg cursor-pointer hover:opacity-80"
-                        >Login to Continue</router-link
-                    >
+                    <auth-modal @loginSuccess="closeDialog"></auth-modal>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         @click="closeDialog"
@@ -262,11 +258,14 @@ import BookTag from "../home/BookTag.vue";
 import BookCols from "./BookCols.vue";
 import { onBeforeRouteUpdate } from "vue-router";
 import useAuth from "../../compossable/auth";
+import AuthModal from "../auth/AuthModal.vue";
+
 export default {
     props: ["id"],
     components: {
         BookTag,
         BookCols,
+        AuthModal,
     },
     setup(props) {
         const { getBook, bookDetail, isLoading, latestBooks } = useBooks();

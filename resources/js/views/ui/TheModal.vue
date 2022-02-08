@@ -44,7 +44,7 @@
     -->
 
                 <div
-                    class="inline-block align-bottom rounded-lg text-center overflow-hidden transform transition-all sm:my-8 sm:align-middle md:w-1/2"
+                    class="inline-block align-bottom rounded-lg text-center overflow-hidden transform transition-all sm:my-8 sm:align-middle w-full md:w-1/2"
                 >
                     <div class="px-4 py-3 flex flex-col justify-center">
                         <slot></slot>

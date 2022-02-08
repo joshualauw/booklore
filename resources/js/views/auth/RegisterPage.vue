@@ -170,6 +170,7 @@ export default {
                 password_confirmation: password_confirmation.value,
                 phone: phone.value,
             });
+            router.push({ name: "login" });
         };
 
         return {

@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username');
             $table->string('email')->unique();
-            $table->string("profile");
+            $table->string("profile")->default("https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone');
