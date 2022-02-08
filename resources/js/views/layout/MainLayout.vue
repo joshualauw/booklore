@@ -1,18 +1,18 @@
 <template>
     <div
-        class="h-16 w-full flex justify-center md:justify-between sticky top-0 items-center bg-primary shadow-sm shadow-primary px-4 md:px-12 text-white z-10"
+        class="py-3 w-full flex justify-center md:justify-between sticky top-0 bg-white items-center shadow-md px-4 md:px-10 z-10"
     >
         <router-link
             v-if="!authRoute"
             class="text-2xl hidden md:flex items-center tracking-wider font-semibold"
             :to="{ name: 'home' }"
-            >BOOK<span class="text-secondary">LORE</span></router-link
+            >BOOK<span class="text-primary">LORE</span></router-link
         >
         <router-link
             v-if="authRoute"
             class="text-2xl flex items-center tracking-wider font-semibold"
             :to="{ name: 'home' }"
-            >BOOK<span class="text-secondary">LORE</span></router-link
+            >BOOK<span class="text-primary">LORE</span></router-link
         >
         <ul v-if="!authRoute" class="flex items-center space-x-4 md:space-x-8">
             <li>
@@ -174,13 +174,14 @@
             class="origin-top-right absolute right-6 md:right-16 top-12 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
         >
             <div class="py-1" role="none">
-                <button
+                <router-link
+                    :to="{ name: 'profile', params: { id: user.id } }"
                     class="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 border-gray-200"
                     role="menuitem"
                     tabindex="-1"
                 >
                     My Profile
-                </button>
+                </router-link>
                 <button
                     class="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 border-gray-200"
                     role="menuitem"

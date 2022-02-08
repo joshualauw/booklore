@@ -6,6 +6,7 @@ import Register from "./views/auth/RegisterPage.vue";
 import BookDetail from "./views/book/BookDetail.vue";
 import BookSearch from "./views/book/BookSearch.vue";
 import LibraryPage from "./views/library/LibraryPage.vue";
+import ProfilePage from "./views/profile/ProfilePage.vue";
 import NotFound from "./views/NotFoundPage.vue";
 
 const routes = [
@@ -36,6 +37,12 @@ const routes = [
                 meta: {
                     auth: true,
                 },
+            },
+            {
+                path: "/profile/:id",
+                component: ProfilePage,
+                name: "profile",
+                props: true,
             },
             {
                 path: "/register",

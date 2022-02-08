@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
         User::create([
             'username' => "Joshualauw",
             'email' => 'joshualauw1@gmail.com',
-            "profile" => "https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg",
             'password' => bcrypt("123456"),
             "phone" => "082132621654",
         ]);
@@ -25,7 +24,6 @@ class UserSeeder extends Seeder
         User::create([
             'username' => "nathanlauw",
             'email' => 'nathanlauw1@gmail.com',
-            "profile" => "https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg",
             'password' => bcrypt("123456"),
             "phone" => "082132621654",
         ]);

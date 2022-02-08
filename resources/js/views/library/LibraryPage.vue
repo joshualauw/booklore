@@ -11,11 +11,24 @@
             class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-8 md:gap-12"
         >
             <div v-for="book in userLibrary" :key="book.id">
-                <img
-                    :src="book.image"
-                    :alt="book.title"
-                    class="w-64 h-[260px] rounded-md cursor-pointer shadow-md"
-                />
+                <div class="relative group">
+                    <img
+                        :src="book.image"
+                        :alt="book.title"
+                        class="w-72 h-64 rounded-md cursor-pointer shadow-md group-hover:brightness-50"
+                    />
+                    <router-link
+                        :to="{ name: 'bookDetail', params: { id: book.id } }"
+                        class="hidden group-hover:block hover:opacity-80 bg-black absolute top-20 inset-x-5 py-1 px-2 rounded-lg border-white border-2 text-white text-center text-sm font-semibold"
+                    >
+                        Book Detail
+                    </router-link>
+                    <button
+                        class="hidden group-hover:block hover:opacity-80 bg-black absolute top-32 inset-x-5 py-1 px-2 rounded-lg border-white border-2 text-white text-center text-sm font-semibold"
+                    >
+                        Continue Reading
+                    </button>
+                </div>
                 <div class="flex items-center justify-between px-1 mt-3">
                     <div>
                         <h2 class="font-semibold">
@@ -26,9 +39,10 @@
                         </p>
                     </div>
                     <img
+                        @click="toUserProfile(book.author.id)"
                         :src="book.author.profile"
                         :alt="book.author.username"
-                        class="w-7 h-7 rounded-full"
+                        class="w-7 h-7 rounded-full cursor-pointer"
                     />
                 </div>
                 <div
@@ -81,18 +95,25 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 import useBooks from "../../compossable/books";
 import useLibrary from "../../compossable/library";
 export default {
     setup() {
         const { userLibrary, getUserLibrary, libraryLoading } = useLibrary();
         const { limitText } = useBooks();
+        const router = useRouter();
 
         getUserLibrary();
+
+        const toUserProfile = (id) => {
+            router.push({ name: "profile", params: { id } });
+        };
 
         return {
             userLibrary,
             limitText,
+            toUserProfile,
             isLoading: libraryLoading,
         };
     },

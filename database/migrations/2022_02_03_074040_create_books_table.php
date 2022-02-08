@@ -19,6 +19,7 @@ class CreateBooksTable extends Migration
             $table->string("title");
             $table->text("description");
             $table->mediumText("image");
+            $table->boolean("isPublic");
             $table->timestamps();
         });
     }

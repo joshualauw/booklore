@@ -20,7 +20,7 @@
                         {{ bookDetail.title }}
                     </h1>
                     <div
-                        class="flex justify-center items-center mt-12 w-64 md:w-[300px]"
+                        class="flex justify-start items-center mt-12 w-64 md:w-[300px]"
                     >
                         <div
                             class="text-sm flex flex-col justify-center items-center font-semibold border-r-2 px-2"
@@ -171,7 +171,13 @@
             class="mx-12 flex flex-col md:flex-row md:mx-32 mt-10 space-x-0 space-y-5 md:space-x-10 md:space-y-0"
         >
             <div class="flex flex-col w-full md:w-2/3">
-                <div class="flex items-center space-x-3">
+                <router-link
+                    :to="{
+                        name: 'profile',
+                        params: { id: bookDetail.author.id },
+                    }"
+                    class="flex items-center space-x-3 max-w-fit"
+                >
                     <img
                         :src="bookDetail.author.profile"
                         :alt="bookDetail.author.username"
@@ -180,7 +186,7 @@
                     <span class="text-lg">{{
                         bookDetail.author.username
                     }}</span>
-                </div>
+                </router-link>
                 <p class="mt-8 text-justify">{{ bookDetail.description }}</p>
                 <div class="mt-4">
                     <book-tag
@@ -295,8 +301,9 @@ export default {
         });
 
         onBeforeRouteUpdate((to, from, next) => {
-            getBook(to.params.id);
-            getChaptersByBookId(bookDetail.value.id);
+            getBook(to.params.id).then(() => {
+                getChaptersByBookId(bookDetail.value.id);
+            });
             next();
         });
 

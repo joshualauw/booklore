@@ -19,8 +19,11 @@ class UserResource extends JsonResource
             "username" => $this->username,
             "email" => $this->email,
             "profile" => $this->profile,
+            "background" => $this->background,
             "phone" => $this->phone,
             "library" => $this->libraries()->pluck("books.id"),
+            "writings" => $this->books()->where("isPublic", true)->pluck("books.id"),
+            "draft" => $this->books()->where("isPublic", false)->pluck("books.id"),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at
         ];
