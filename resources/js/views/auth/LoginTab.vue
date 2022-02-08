@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="submitForm">
-        <div class="space-y-3">
+        <div class="space-y-3 mb-3">
             <label class="relative block w-full">
                 <span
                     class="absolute inset-y-0 left-1 flex items-center pl-2 text-gray-800"
@@ -58,10 +58,10 @@
                 <p v-if="!isLoading">Login</p>
                 <i v-else class="fas fa-spinner fa-pulse"></i>
             </button>
-            <p v-for="err in errors" :key="err" class="text-primary">
-                *{{ err }}
-            </p>
         </div>
+        <p v-for="err in errors" :key="err" class="text-primary text-left">
+            *{{ err }}
+        </p>
     </form>
 </template>
 

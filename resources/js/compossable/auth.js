@@ -24,6 +24,7 @@ export default function useAuth() {
             sessionStorage.setItem("user", JSON.stringify(res.data));
             user.value = res.data.user;
             axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
+            return true;
         } catch (err) {
             const errorsTemp = err.response.data.errors;
             errors.value = [];
@@ -31,6 +32,7 @@ export default function useAuth() {
                 errors.value.push(errorsTemp[i][0]);
             }
             isLoading.value = false;
+            return false;
         }
     };
 

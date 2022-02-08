@@ -33,6 +33,9 @@ const routes = [
                 path: "/library",
                 component: LibraryPage,
                 name: "library",
+                meta: {
+                    auth: true,
+                },
             },
             {
                 path: "/register",
@@ -60,7 +63,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const loggedIn = sessionStorage.getItem("user");
     if (to.matched.some((record) => record.meta.auth) && !loggedIn) {
-        next("/login");
+        next({ name: "login" });
         return;
     }
     next();

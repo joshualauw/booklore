@@ -22,7 +22,7 @@
                         <div class="flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 md:h-7 md:w-7 mr-1"
+                                class="h-5 w-5 md:h-6 md:w-6 mr-1"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                             >
@@ -37,7 +37,7 @@
                         <div class="flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 md:h-7 md:w-7 mr-1"
+                                class="h-5 w-5 md:h-6 md:w-6 mr-1"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -60,7 +60,7 @@
                         <div class="flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 md:h-7 md:w-7 mr-1"
+                                class="h-5 w-5 md:h-6 md:w-6 mr-1"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"

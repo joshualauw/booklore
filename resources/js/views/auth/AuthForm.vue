@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-col w-4/5 mx-auto lg:w-1/2 mt-16 mb-12 rounded-lg bg-lightgray shadow-md py-8 px-8"
+        class="flex flex-col w-[85%] mx-auto lg:w-1/2 mt-12 md:mt-16 mb-12 rounded-lg bg-lightgray shadow-md py-8 px-8"
     >
         <h1 class="text-3xl font-semibold text-center mb-6">{{ title }}</h1>
         <form

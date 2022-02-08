@@ -149,6 +149,7 @@
 import { ref } from "@vue/reactivity";
 import useAuth from "../../compossable/auth";
 import AuthForm from "./AuthForm.vue";
+import { useRouter } from "vue-router";
 export default {
     components: {
         AuthForm,
@@ -159,6 +160,7 @@ export default {
         const password = ref("");
         const password_confirmation = ref("");
         const phone = ref("");
+        const router = useRouter();
 
         const { register, errors, isLoading } = useAuth();
 

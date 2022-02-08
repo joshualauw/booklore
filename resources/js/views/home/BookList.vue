@@ -187,11 +187,7 @@
                 <div
                     class="p-6 bg-lightgray rounded-lg h-full relative flex flex-col justify-center items-start space-x-0 space-y-4 md:space-x-5 md:space-y-0 md:flex-row"
                 >
-                    <router-link
-                        :to="{ name: 'login' }"
-                        class="p-3 text-white bg-primary rounded-lg cursor-pointer hover:opacity-80"
-                        >Login to Continue</router-link
-                    >
+                    <auth-modal @loginSuccess="loginSuccess"></auth-modal>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         @click="closeDialog"
@@ -220,9 +216,12 @@ import BookTag from "./BookTag.vue";
 import { useRouter } from "vue-router";
 import useLibrary from "../../compossable/library";
 import useAuth from "../../compossable/auth";
+import AuthModal from "../auth/AuthModal.vue";
+
 export default {
     components: {
         BookTag,
+        AuthModal,
     },
     props: ["books"],
     setup(props) {
@@ -244,12 +243,13 @@ export default {
             loginDialogOpen.value = true;
         };
         const closeDialog = () => {
+            bookDialogOpen.value = false;
             loginDialogOpen.value = false;
         };
 
-        const router = useRouter();
-        const toBookDetail = (id) => {
-            router.push({ name: "bookDetail", params: { id } });
+        const loginSuccess = () => {
+            closeDialog();
+            router.push({ name: "home" });
         };
 
         const closeBookDialog = () => {
@@ -262,13 +262,13 @@ export default {
             bookDialogOpen,
             bookDetail,
             limitText,
-            toBookDetail,
             addOrRemoveLibrary,
             openDialog,
             loginDialogOpen,
             closeDialog,
             inLibrary,
             user,
+            loginSuccess,
         };
     },
 };

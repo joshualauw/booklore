@@ -227,7 +227,7 @@
                 <div
                     class="p-6 bg-lightgray rounded-lg h-full relative flex flex-col justify-center items-start space-x-0 space-y-4 md:space-x-5 md:space-y-0 md:flex-row"
                 >
-                    <auth-modal @loginSuccess="closeDialog"></auth-modal>
+                    <auth-modal @loginSuccess="loginSuccess"></auth-modal>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         @click="closeDialog"
@@ -256,7 +256,7 @@ import useChapter from "../../compossable/chapter";
 import useLibrary from "../../compossable/library";
 import BookTag from "../home/BookTag.vue";
 import BookCols from "./BookCols.vue";
-import { onBeforeRouteUpdate } from "vue-router";
+import { onBeforeRouteUpdate, useRouter } from "vue-router";
 import useAuth from "../../compossable/auth";
 import AuthModal from "../auth/AuthModal.vue";
 
@@ -274,6 +274,7 @@ export default {
             useChapter();
         const { addOrRemoveLibrary, inLibrary } = useLibrary();
         const { user } = useAuth();
+        const router = useRouter();
 
         const dialogIsOpen = ref(false);
 
@@ -282,6 +283,11 @@ export default {
         };
         const closeDialog = () => {
             dialogIsOpen.value = false;
+        };
+        const loginSuccess = () => {
+            closeDialog();
+            // router.push({ name: "bookDetail", params: { id: props.id } });
+            router.push({ name: "home" });
         };
 
         getBook(props.id).then(() => {
@@ -309,6 +315,7 @@ export default {
             closeDialog,
             inLibrary,
             addOrRemoveLibrary,
+            loginSuccess,
         };
     },
 };
