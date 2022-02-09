@@ -32,7 +32,7 @@
                 <p class="font-semibold">library books</p>
             </div>
             <div class="flex flex-col w-1/3 items-center">
-                {{ userProfile.follows.length }}
+                {{ userProfile.followers.length }}
                 <p class="font-semibold">Follower</p>
             </div>
         </div>
@@ -44,18 +44,66 @@
             class="w-full md:w-1/3 md:h-fit bg-white rounded-lg shadow-lg mt-5 p-5"
         >
             Bio
+            <p class="mt-4 mb-1 text-lg font-semibold">
+                {{ userProfile.username }} Followers
+            </p>
+            <p v-if="userProfile.followers.length == 0" class="my-2 text-lg">
+                -
+            </p>
+            <img
+                v-else
+                :src="follow.profile"
+                :alt="follow.username"
+                @click="toProfileLink(follow.id)"
+                v-for="follow in userProfile.followers"
+                :key="follow.id"
+                class="inline-flex w-7 h-7 rounded-full cursor-pointer mr-3"
+            />
+            <p class="mt-4 mb-1 text-lg font-semibold">
+                {{ userProfile.username }} Followings
+            </p>
+            <p v-if="userProfile.followings.length == 0" class="my-2 text-lg">
+                -
+            </p>
+            <img
+                v-else
+                :src="follow.profile"
+                :alt="follow.username"
+                @click="toProfileLink(follow.id)"
+                v-for="follow in userProfile.followings"
+                :key="follow.id"
+                class="inline-flex w-7 h-7 rounded-full cursor-pointer mr-3"
+            />
         </div>
         <div
             v-if="userProfile.writings"
             class="w-full md:w-2/3 bg-white rounded-lg shadow-lg mt-5 p-5"
         >
+            <div v-if="userProfile.id != user.id">
+                <button
+                    v-if="!isFollowed(userProfile)"
+                    @click="followUser(userProfile)"
+                    class="bg-green-500 px-4 py-1 rounded-lg shadow-sm hover:opacity-80 mb-3 text-white"
+                >
+                    Follow
+                    <i class="fa-solid fa-plus ml-1"></i>
+                </button>
+                <button
+                    v-else
+                    @click="unfollowUser(userProfile)"
+                    class="bg-primary px-4 py-1 rounded-lg shadow-sm hover:opacity-80 mb-3 text-white"
+                >
+                    Unfollow
+                    <i class="fa-solid fa-check ml-1"></i>
+                </button>
+            </div>
             <h1 class="text-2xl font-semibold">
                 Book written by {{ userProfile.username }}
             </h1>
             <h3 class="text-sm text-slate-500 mt-1 mb-5">
                 {{ userProfile.writings.length }} public
-                <span v-if="isUser">
-                    - {{ userProfile.draft.length }} drafts (only you can seen)
+                <span v-if="user.id == userProfile.id">
+                    - {{ userProfile.draft.length }} drafts (only you can see)
                 </span>
             </h3>
             <div class="flex flex-col space-y-8">
@@ -66,9 +114,9 @@
 </template>
 
 <script>
-import { computed } from "@vue/runtime-core";
-import { onBeforeRouteUpdate } from "vue-router";
+import { onBeforeRouteUpdate, useRouter } from "vue-router";
 import useAuth from "../../compossable/auth";
+import useFollows from "../../compossable/follows";
 import useProfile from "../../compossable/profile";
 import BookCols from "../book/BookCols.vue";
 
@@ -86,8 +134,13 @@ export default {
             userWritings,
         } = useProfile();
         const { user } = useAuth();
+        const { followUser, unfollowUser, isFollowed } = useFollows();
 
-        const isUser = computed(() => user.value.id == userProfile.value.id);
+        const router = useRouter();
+
+        const toProfileLink = (profileId) => {
+            router.push({ name: "profile", params: { id: profileId } });
+        };
 
         getUser(props.id).then(() => {
             getUserWritings(userProfile.value.id);
@@ -103,8 +156,11 @@ export default {
             userProfile,
             userWritings,
             user,
-            isUser,
             isLoading: profileLoading,
+            toProfileLink,
+            isFollowed,
+            followUser,
+            unfollowUser,
         };
     },
 };

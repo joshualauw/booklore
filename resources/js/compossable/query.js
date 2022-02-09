@@ -13,7 +13,6 @@ export default function useQuery() {
 
     const initQueryParams = () => {
         queries.value = [];
-        getBookByTitle({ title: "" });
         if (route.query.title) {
             queryTitle.value = route.query.title;
             getBookByTitle({ title: queryTitle.value });

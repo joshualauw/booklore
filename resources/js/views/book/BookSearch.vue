@@ -84,6 +84,7 @@ export default {
 
         onBeforeRouteLeave((to, from, next) => {
             queries.value = [];
+            queryTitle.value = "";
             next();
         });
 

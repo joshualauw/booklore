@@ -23,6 +23,7 @@ export default function useAuth() {
             //set authentication data to session storage
             sessionStorage.setItem("user", JSON.stringify(res.data));
             user.value = res.data.user;
+            // console.log(user.value);
             axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
             return true;
         } catch (err) {
@@ -42,6 +43,7 @@ export default function useAuth() {
             await axios.post("http://127.0.0.1:8000/api/register", data);
             isLoading.value = false;
             alert("Account succesfully registered!");
+            return true;
         } catch (err) {
             const errorsTemp = err.response.data.errors;
             errors.value = [];
@@ -49,6 +51,7 @@ export default function useAuth() {
                 errors.value.push(errorsTemp[i][0]);
             }
             isLoading.value = false;
+            return false;
         }
     };
 

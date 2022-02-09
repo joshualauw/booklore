@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,8 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
   Route::post("/library/create", [LibraryController::class, 'store']);
   Route::post("/library/delete", [LibraryController::class, 'delete']);
   Route::get("/library/byUser/{id}", [LibraryController::class, 'byUser']);
+  Route::post("/user/follow", [FollowController::class, 'follow']);
+  Route::post("/user/unfollow", [FollowController::class, 'unfollow']);
 });
 
 Route::get("/book/byUser/{id}", [BookController::class, 'byUser']);

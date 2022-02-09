@@ -12,14 +12,20 @@ import useTags from "./compossable/tags.js";
 export default {
     setup() {
         const { user, logout } = useAuth();
-        const { getLatestBooks, getRandomBook, getHighlyRatedBooks } =
-            useBooks();
+        const {
+            getLatestBooks,
+            getRandomBook,
+            getHighlyRatedBooks,
+            getBookByTitle,
+        } = useBooks();
         const { getTags } = useTags();
 
         getTags().then(() => {
             getLatestBooks().then(() => {
                 getRandomBook().then(() => {
-                    getHighlyRatedBooks();
+                    getHighlyRatedBooks().then(() => {
+                        getBookByTitle({ title: "" });
+                    });
                 });
             });
         });

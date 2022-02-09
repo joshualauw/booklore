@@ -24,7 +24,8 @@ class UserResource extends JsonResource
             "library" => $this->libraries()->pluck("books.id"),
             "writings" => $this->books()->where("isPublic", true)->pluck("books.id"),
             "draft" => $this->books()->where("isPublic", false)->pluck("books.id"),
-            "follows" => $this->follows()->select("users.id", "username")->get(),
+            "followers" => $this->followers()->select("users.id as id", "username", "profile")->get(),
+            "followings" => $this->followings()->select("users.id as id", "username", "profile")->get(),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at
         ];

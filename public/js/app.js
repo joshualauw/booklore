@@ -19493,7 +19493,8 @@ __webpack_require__.r(__webpack_exports__);
     var _useBooks = (0,_compossable_books_js__WEBPACK_IMPORTED_MODULE_2__["default"])(),
         getLatestBooks = _useBooks.getLatestBooks,
         getRandomBook = _useBooks.getRandomBook,
-        getHighlyRatedBooks = _useBooks.getHighlyRatedBooks;
+        getHighlyRatedBooks = _useBooks.getHighlyRatedBooks,
+        getBookByTitle = _useBooks.getBookByTitle;
 
     var _useTags = (0,_compossable_tags_js__WEBPACK_IMPORTED_MODULE_3__["default"])(),
         getTags = _useTags.getTags;
@@ -19501,7 +19502,11 @@ __webpack_require__.r(__webpack_exports__);
     getTags().then(function () {
       getLatestBooks().then(function () {
         getRandomBook().then(function () {
-          getHighlyRatedBooks();
+          getHighlyRatedBooks().then(function () {
+            getBookByTitle({
+              title: ""
+            });
+          });
         });
       });
     });
@@ -19676,7 +19681,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["tag"],
   setup: function setup(props) {
@@ -19888,6 +19892,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var submitForm = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -19899,11 +19904,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                router.push({
-                  name: "home"
-                });
+                res = _context.sent;
 
-              case 3:
+                if (res) {
+                  router.push({
+                    name: "home"
+                  });
+                }
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -20057,6 +20066,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var submitForm = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -20071,11 +20081,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                router.push({
-                  name: "login"
-                });
+                res = _context.sent;
 
-              case 3:
+                if (res) {
+                  router.push({
+                    name: "login"
+                  });
+                }
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -20427,6 +20441,7 @@ __webpack_require__.r(__webpack_exports__);
 
     (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.onBeforeRouteLeave)(function (to, from, next) {
       queries.value = [];
+      queryTitle.value = "";
       next();
     });
     return {
@@ -20453,7 +20468,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["tag"],
   setup: function setup(props) {
@@ -20540,6 +20554,7 @@ __webpack_require__.r(__webpack_exports__);
         getBookByTitle = _useBooks.getBookByTitle;
 
     initQueryParams();
+    console.log(user.value);
     var authRoute = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return route.name == "login" || route.name == "register";
     });
@@ -20673,11 +20688,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vue/runtime-core */ "./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
 /* harmony import */ var _compossable_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../compossable/auth */ "./resources/js/compossable/auth.js");
-/* harmony import */ var _compossable_profile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../compossable/profile */ "./resources/js/compossable/profile.js");
-/* harmony import */ var _book_BookCols_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../book/BookCols.vue */ "./resources/js/views/book/BookCols.vue");
+/* harmony import */ var _compossable_follows__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../compossable/follows */ "./resources/js/compossable/follows.js");
+/* harmony import */ var _compossable_profile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../compossable/profile */ "./resources/js/compossable/profile.js");
+/* harmony import */ var _book_BookCols_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../book/BookCols.vue */ "./resources/js/views/book/BookCols.vue");
 
 
 
@@ -20686,10 +20701,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["id"],
   components: {
-    BookCols: _book_BookCols_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    BookCols: _book_BookCols_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   setup: function setup(props) {
-    var _useProfile = (0,_compossable_profile__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+    var _useProfile = (0,_compossable_profile__WEBPACK_IMPORTED_MODULE_2__["default"])(),
         userProfile = _useProfile.userProfile,
         getUser = _useProfile.getUser,
         profileLoading = _useProfile.profileLoading,
@@ -20699,9 +20714,22 @@ __webpack_require__.r(__webpack_exports__);
     var _useAuth = (0,_compossable_auth__WEBPACK_IMPORTED_MODULE_0__["default"])(),
         user = _useAuth.user;
 
-    var isUser = (0,_vue_runtime_core__WEBPACK_IMPORTED_MODULE_3__.computed)(function () {
-      return user.value.id == userProfile.value.id;
-    });
+    var _useFollows = (0,_compossable_follows__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+        followUser = _useFollows.followUser,
+        unfollowUser = _useFollows.unfollowUser,
+        isFollowed = _useFollows.isFollowed;
+
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.useRouter)();
+
+    var toProfileLink = function toProfileLink(profileId) {
+      router.push({
+        name: "profile",
+        params: {
+          id: profileId
+        }
+      });
+    };
+
     getUser(props.id).then(function () {
       getUserWritings(userProfile.value.id);
     });
@@ -20715,8 +20743,11 @@ __webpack_require__.r(__webpack_exports__);
       userProfile: userProfile,
       userWritings: userWritings,
       user: user,
-      isUser: isUser,
-      isLoading: profileLoading
+      isLoading: profileLoading,
+      toProfileLink: toProfileLink,
+      isFollowed: isFollowed,
+      followUser: followUser,
+      unfollowUser: unfollowUser
     };
   }
 });
@@ -23537,27 +23568,65 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_11 = {
   "class": "flex flex-col md:flex-row space-x-0 md:space-x-6 mx-12 md:mx-56 mt-4"
 };
-
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_12 = {
   "class": "w-full md:w-1/3 md:h-fit bg-white rounded-lg shadow-lg mt-5 p-5"
-}, " Bio ", -1
-/* HOISTED */
-);
+};
 
-var _hoisted_13 = {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Bio ");
+
+var _hoisted_14 = {
+  "class": "mt-4 mb-1 text-lg font-semibold"
+};
+var _hoisted_15 = {
+  key: 0,
+  "class": "my-2 text-lg"
+};
+var _hoisted_16 = ["src", "alt", "onClick"];
+var _hoisted_17 = {
+  "class": "mt-4 mb-1 text-lg font-semibold"
+};
+var _hoisted_18 = {
+  key: 2,
+  "class": "my-2 text-lg"
+};
+var _hoisted_19 = ["src", "alt", "onClick"];
+var _hoisted_20 = {
   key: 0,
   "class": "w-full md:w-2/3 bg-white rounded-lg shadow-lg mt-5 p-5"
 };
-var _hoisted_14 = {
-  "class": "text-2xl font-semibold"
-};
-var _hoisted_15 = {
-  "class": "text-sm text-slate-500 mt-1 mb-5"
-};
-var _hoisted_16 = {
+var _hoisted_21 = {
   key: 0
 };
-var _hoisted_17 = {
+
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Follow ");
+
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fa-solid fa-plus ml-1"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_24 = [_hoisted_22, _hoisted_23];
+
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Unfollow ");
+
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fa-solid fa-check ml-1"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_27 = [_hoisted_25, _hoisted_26];
+var _hoisted_28 = {
+  "class": "text-2xl font-semibold"
+};
+var _hoisted_29 = {
+  "class": "text-sm text-slate-500 mt-1 mb-5"
+};
+var _hoisted_30 = {
+  key: 0
+};
+var _hoisted_31 = {
   "class": "flex flex-col space-y-8"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -23583,17 +23652,65 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   ), _hoisted_6]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.library.length) + " ", 1
   /* TEXT */
-  ), _hoisted_8]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.follows.length) + " ", 1
+  ), _hoisted_8]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.followers.length) + " ", 1
   /* TEXT */
   ), _hoisted_10])])], 4
   /* STYLE */
-  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, $setup.userProfile.writings ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_14, " Book written by " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.username), 1
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.username) + " Followers ", 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.writings.length) + " public ", 1
+  ), $setup.userProfile.followers.length == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_15, " - ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 1
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.userProfile.followers, function (follow) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", {
+      src: follow.profile,
+      alt: follow.username,
+      onClick: function onClick($event) {
+        return $setup.toProfileLink(follow.id);
+      },
+      key: follow.id,
+      "class": "inline-flex w-7 h-7 rounded-full cursor-pointer mr-3"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_16);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.username) + " Followings ", 1
   /* TEXT */
-  ), $setup.isUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_16, " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.draft.length) + " drafts (only you can seen) ", 1
+  ), $setup.userProfile.followings.length == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_18, " - ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 3
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.userProfile.followings, function (follow) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", {
+      src: follow.profile,
+      alt: follow.username,
+      onClick: function onClick($event) {
+        return $setup.toProfileLink(follow.id);
+      },
+      key: follow.id,
+      "class": "inline-flex w-7 h-7 rounded-full cursor-pointer mr-3"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_19);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))]), $setup.userProfile.writings ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [$setup.userProfile.id != $setup.user.id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [!$setup.isFollowed($setup.userProfile) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    key: 0,
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $setup.followUser($setup.userProfile);
+    }),
+    "class": "bg-green-500 px-4 py-1 rounded-lg shadow-sm hover:opacity-80 mb-3 text-white"
+  }, _hoisted_24)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    key: 1,
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $setup.unfollowUser($setup.userProfile);
+    }),
+    "class": "bg-primary px-4 py-1 rounded-lg shadow-sm hover:opacity-80 mb-3 text-white"
+  }, _hoisted_27))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_28, " Book written by " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.username), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [!$setup.isLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_book_cols, {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.writings.length) + " public ", 1
+  /* TEXT */
+  ), $setup.user.id == $setup.userProfile.id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_30, " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.userProfile.draft.length) + " drafts (only you can see) ", 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [!$setup.isLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_book_cols, {
     key: 0,
     books: $setup.userWritings
   }, null, 8
@@ -23752,7 +23869,8 @@ function useAuth() {
               errors.value = []; //set authentication data to session storage
 
               sessionStorage.setItem("user", JSON.stringify(res.data));
-              user.value = res.data.user;
+              user.value = res.data.user; // console.log(user.value);
+
               (axios__WEBPACK_IMPORTED_MODULE_1___default().defaults.headers.common.Authorization) = "Bearer ".concat(res.data.token);
               return _context.abrupt("return", true);
 
@@ -23797,11 +23915,10 @@ function useAuth() {
             case 4:
               isLoading.value = false;
               alert("Account succesfully registered!");
-              _context2.next = 14;
-              break;
+              return _context2.abrupt("return", true);
 
-            case 8:
-              _context2.prev = 8;
+            case 9:
+              _context2.prev = 9;
               _context2.t0 = _context2["catch"](1);
               errorsTemp = _context2.t0.response.data.errors;
               errors.value = [];
@@ -23811,13 +23928,14 @@ function useAuth() {
               }
 
               isLoading.value = false;
+              return _context2.abrupt("return", false);
 
-            case 14:
+            case 16:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 8]]);
+      }, _callee2, null, [[1, 9]]);
     }));
 
     return function register(_x2) {
@@ -24263,6 +24381,151 @@ function useChapter() {
 
 /***/ }),
 
+/***/ "./resources/js/compossable/follows.js":
+/*!*********************************************!*\
+  !*** ./resources/js/compossable/follows.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useFollows)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth */ "./resources/js/compossable/auth.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+function useFollows() {
+  var _useAuth = (0,_auth__WEBPACK_IMPORTED_MODULE_3__["default"])(),
+      user = _useAuth.user;
+
+  var followLoading = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)(false);
+
+  var followUser = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(followed) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              followLoading.value = true;
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("http://127.0.0.1:8000/api/user/follow", {
+                user_id: user.value.id,
+                followed_id: followed.id
+              });
+
+            case 4:
+              user.value.followings.push(followed);
+              followed.followers.push(user.value);
+              followLoading.value = false;
+              _context.next = 13;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              console.log("Error at followProvider: " + _context.t0);
+              followLoading.value = false;
+
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 9]]);
+    }));
+
+    return function followUser(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var unfollowUser = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(followed) {
+      var i, _i;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              followLoading.value = true;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("http://127.0.0.1:8000/api/user/unfollow", {
+                user_id: user.value.id,
+                followed_id: followed.id
+              });
+
+            case 4:
+              followLoading.value = false;
+
+              for (i in user.value.followings) {
+                if (user.value.followings[i].id == followed.id) {
+                  user.value.followings.splice(i, 1);
+                }
+              }
+
+              for (_i in followed.followers) {
+                if (followed.followers[_i].id == user.value.id) {
+                  followed.followers.splice(_i, 1);
+                }
+              }
+
+              _context2.next = 13;
+              break;
+
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](1);
+              console.log("Error at followProvider: " + _context2.t0);
+              followLoading.value = false;
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 9]]);
+    }));
+
+    return function unfollowUser(_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var isFollowed = function isFollowed(userProfile) {
+    for (var i in user.value.followings) {
+      if (user.value.followings[i].id == userProfile.id) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  return {
+    followLoading: followLoading,
+    followUser: followUser,
+    unfollowUser: unfollowUser,
+    isFollowed: isFollowed
+  };
+}
+
+/***/ }),
+
 /***/ "./resources/js/compossable/library.js":
 /*!*********************************************!*\
   !*** ./resources/js/compossable/library.js ***!
@@ -24296,8 +24559,6 @@ function useLibrary() {
   var _useAuth = (0,_auth__WEBPACK_IMPORTED_MODULE_3__["default"])(),
       user = _useAuth.user;
 
-  var libraryIds = user.value.library;
-
   var addLibrary = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(data) {
       var res;
@@ -24313,25 +24574,24 @@ function useLibrary() {
             case 4:
               res = _context.sent;
               user.value.library.push(res.data);
-              libraryIds = user.value.library;
               getUserLibrary();
               libraryLoading.value = false;
               alert("book added to library!");
-              _context.next = 16;
+              _context.next = 15;
               break;
 
-            case 12:
-              _context.prev = 12;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](1);
               console.log("Error at libraryProvider: " + _context.t0);
               libraryLoading.value = false;
 
-            case 16:
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 12]]);
+      }, _callee, null, [[1, 11]]);
     }));
 
     return function addLibrary(_x) {
@@ -24349,7 +24609,7 @@ function useLibrary() {
               libraryLoading.value = true;
 
               if (!confirm("are you sure you want to remove this book from library?")) {
-                _context2.next = 16;
+                _context2.next = 15;
                 break;
               }
 
@@ -24366,24 +24626,23 @@ function useLibrary() {
                 }
               }
 
-              libraryIds = user.value.library;
               getUserLibrary();
               libraryLoading.value = false;
-              _context2.next = 16;
+              _context2.next = 15;
               break;
 
-            case 12:
-              _context2.prev = 12;
+            case 11:
+              _context2.prev = 11;
               _context2.t0 = _context2["catch"](2);
               console.log("Error at libraryProvider: " + _context2.t0);
               libraryLoading.value = false;
 
-            case 16:
+            case 15:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 12]]);
+      }, _callee2, null, [[2, 11]]);
     }));
 
     return function removeLibrary(_x2) {
@@ -24475,8 +24734,8 @@ function useLibrary() {
   }();
 
   var inLibrary = function inLibrary(bookId) {
-    for (var i in libraryIds) {
-      if (bookId == libraryIds[i]) {
+    for (var i in user.value.library) {
+      if (bookId == user.value.library[i]) {
         return true;
       }
     }
@@ -24653,9 +24912,6 @@ function useQuery() {
 
   var initQueryParams = function initQueryParams() {
     queries.value = [];
-    getBookByTitle({
-      title: ""
-    });
 
     if (route.query.title) {
       queryTitle.value = route.query.title;

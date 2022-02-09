@@ -6,7 +6,6 @@ const userLibrary = ref([]);
 export default function useLibrary() {
     const libraryLoading = ref(false);
     const { user } = useAuth();
-    let libraryIds = user.value.library;
 
     const addLibrary = async (data) => {
         libraryLoading.value = true;
@@ -16,7 +15,6 @@ export default function useLibrary() {
                 data
             );
             user.value.library.push(res.data);
-            libraryIds = user.value.library;
             getUserLibrary();
             libraryLoading.value = false;
             alert("book added to library!");
@@ -41,7 +39,6 @@ export default function useLibrary() {
                         user.value.library.splice(i, 1);
                     }
                 }
-                libraryIds = user.value.library;
                 getUserLibrary();
                 libraryLoading.value = false;
             } catch (err) {
@@ -81,8 +78,8 @@ export default function useLibrary() {
     };
 
     const inLibrary = (bookId) => {
-        for (let i in libraryIds) {
-            if (bookId == libraryIds[i]) {
+        for (let i in user.value.library) {
+            if (bookId == user.value.library[i]) {
                 return true;
             }
         }

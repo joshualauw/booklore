@@ -88,11 +88,13 @@ export default {
         const { login, errors, isLoading } = useAuth();
 
         const submitForm = async () => {
-            await login({
+            const res = await login({
                 email: email.value,
                 password: password.value,
             });
-            router.push({ name: "home" });
+            if (res) {
+                router.push({ name: "home" });
+            }
         };
 
         return {

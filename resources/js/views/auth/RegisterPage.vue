@@ -165,14 +165,16 @@ export default {
         const { register, errors, isLoading } = useAuth();
 
         const submitForm = async () => {
-            await register({
+            const res = await register({
                 username: username.value,
                 email: email.value,
                 password: password.value,
                 password_confirmation: password_confirmation.value,
                 phone: phone.value,
             });
-            router.push({ name: "login" });
+            if (res) {
+                router.push({ name: "login" });
+            }
         };
 
         return {

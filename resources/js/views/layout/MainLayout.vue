@@ -269,6 +269,8 @@ export default {
         const { getBookByTitle } = useBooks();
         initQueryParams();
 
+        console.log(user.value);
+
         const authRoute = computed(() => {
             return route.name == "login" || route.name == "register";
         });
