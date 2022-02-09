@@ -32,7 +32,7 @@
                 <p class="font-semibold">library books</p>
             </div>
             <div class="flex flex-col w-1/3 items-center">
-                0
+                {{ userProfile.follows.length }}
                 <p class="font-semibold">Follower</p>
             </div>
         </div>
@@ -45,12 +45,18 @@
         >
             Bio
         </div>
-        <div class="w-full md:w-2/3 bg-white rounded-lg shadow-lg mt-5 p-5">
+        <div
+            v-if="userProfile.writings"
+            class="w-full md:w-2/3 bg-white rounded-lg shadow-lg mt-5 p-5"
+        >
             <h1 class="text-2xl font-semibold">
                 Book written by {{ userProfile.username }}
             </h1>
             <h3 class="text-sm text-slate-500 mt-1 mb-5">
-                {{ userProfile.writings.length }} public story
+                {{ userProfile.writings.length }} public
+                <span v-if="isUser">
+                    - {{ userProfile.draft.length }} drafts (only you can seen)
+                </span>
             </h3>
             <div class="flex flex-col space-y-8">
                 <book-cols v-if="!isLoading" :books="userWritings"></book-cols>
@@ -81,6 +87,8 @@ export default {
         } = useProfile();
         const { user } = useAuth();
 
+        const isUser = computed(() => user.value.id == userProfile.value.id);
+
         getUser(props.id).then(() => {
             getUserWritings(userProfile.value.id);
         });
@@ -95,6 +103,7 @@ export default {
             userProfile,
             userWritings,
             user,
+            isUser,
             isLoading: profileLoading,
         };
     },

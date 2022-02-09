@@ -8,6 +8,20 @@
     <div v-else class="mx-12 md:mx-56 my-12">
         <h1 class="text-3xl font-semibold mb-8">Library</h1>
         <div
+            v-if="userLibrary.length == 0"
+            class="w-full h-[65vh] flex flex-col justify-center items-center text-center"
+        >
+            <p class="text-2xl font-semibold mb-6">
+                Your Library is currently Empty!
+            </p>
+            <router-link
+                :to="{ name: 'bookSearch' }"
+                class="py-2 px-3 w-1/2 rounded-full bg-primary text-white transition-colors duration-200 hover:bg-white border-2 hover:text-primary hover:border-primary"
+                >Add some books +</router-link
+            >
+        </div>
+        <div
+            v-else
             class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-8 md:gap-12"
         >
             <div v-for="book in userLibrary" :key="book.id">
@@ -18,15 +32,29 @@
                         class="w-72 h-64 rounded-md cursor-pointer shadow-md group-hover:brightness-50"
                     />
                     <router-link
-                        :to="{ name: 'bookDetail', params: { id: book.id } }"
-                        class="hidden group-hover:block hover:opacity-80 bg-black absolute top-20 inset-x-5 py-1 px-2 rounded-lg border-white border-2 text-white text-center text-sm font-semibold"
+                        :to="{
+                            name: 'bookDetail',
+                            params: { id: book.id },
+                        }"
+                        class="hidden group-hover:block hover:opacity-80 bg-black absolute top-16 inset-x-5 py-2 md:py-1 px-2 rounded-lg border-white border-2 text-white text-center text-sm font-semibold"
                     >
                         Book Detail
                     </router-link>
                     <button
-                        class="hidden group-hover:block hover:opacity-80 bg-black absolute top-32 inset-x-5 py-1 px-2 rounded-lg border-white border-2 text-white text-center text-sm font-semibold"
+                        class="hidden group-hover:block hover:opacity-80 bg-black absolute top-28 inset-x-5 py-2 md:py-1 px-2 rounded-lg border-white border-2 text-white text-center text-sm font-semibold"
                     >
                         Continue Reading
+                    </button>
+                    <button
+                        @click="
+                            removeLibrary({
+                                user_id: user.id,
+                                book_id: book.id,
+                            })
+                        "
+                        class="hidden group-hover:block hover:opacity-80 bg-primary absolute top-40 inset-x-5 py-2 md:py-1 px-2 rounded-lg border-white border-2 text-white text-center text-sm font-semibold"
+                    >
+                        Remove
                     </button>
                 </div>
                 <div class="flex items-center justify-between px-1 mt-3">
@@ -96,12 +124,15 @@
 
 <script>
 import { useRouter } from "vue-router";
+import useAuth from "../../compossable/auth";
 import useBooks from "../../compossable/books";
 import useLibrary from "../../compossable/library";
 export default {
     setup() {
         const { userLibrary, getUserLibrary, libraryLoading } = useLibrary();
         const { limitText } = useBooks();
+        const { user } = useAuth();
+        const { removeLibrary } = useLibrary();
         const router = useRouter();
 
         getUserLibrary();
@@ -112,8 +143,10 @@ export default {
 
         return {
             userLibrary,
+            user,
             limitText,
             toUserProfile,
+            removeLibrary,
             isLoading: libraryLoading,
         };
     },

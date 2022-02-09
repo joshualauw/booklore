@@ -17,13 +17,13 @@ class LibrarySeeder extends Seeder
      */
     public function run()
     {
-        Library::factory()->count(20)->state(new Sequence(
-            function () {
-                return [
-                    "user_id" => User::all()->random(),
-                    "book_id" => Book::all()->random()
-                ];
-            }
-        ))->create();
+        // Library::factory()->count(20)->state(new Sequence(
+        //     function () {
+        //         return [
+        //             "user_id" => User::all()->random(),
+        //             "book_id" => Book::all()->random()
+        //         ];
+        //     }
+        // ))->create();
     }
 }

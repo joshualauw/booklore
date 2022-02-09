@@ -28,15 +28,22 @@ class BookController extends Controller
 
     public function byTag(Request $request)
     {
-        $bookByTags = [];
+        $booksByTags = [];
         if (!$request->tags) {
-            $bookByTags = BookResource::collection(Book::latest()->where("isPublic", true)->get());
+            $booksByTags = BookResource::collection(Book::latest()->where("isPublic", true)->get());
         } else {
-            $bookByTags = BookResource::collection(Book::whereHas("tags", function (Builder $query) use ($request) {
+            $booksByTags = BookResource::collection(Book::whereHas("tags", function (Builder $query) use ($request) {
                 $query->whereIn("text", $request->tags);
             })->where("isPublic", true)->get());
         }
-        return response($bookByTags);
+        return response($booksByTags);
+    }
+
+    public function byTitle(Request $request)
+    {
+        $booksByTitle = [];
+        $booksByTitle = BookResource::collection(Book::where("title", "like", "%$request->title%")->where("isPublic", true)->get());
+        return response($booksByTitle);
     }
 
     public function highlyRated()

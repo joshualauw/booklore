@@ -70,6 +70,26 @@ export default function useBooks() {
         }
     };
 
+    const getBookByTitle = async (data) => {
+        isLoading.value = true;
+        try {
+            const res = await axios.get(
+                "http://127.0.0.1:8000/api/book/byTitle",
+                {
+                    params: data,
+                }
+            );
+            queryBooks.value = [];
+            for (let i in res.data) {
+                queryBooks.value.push(res.data[i]);
+            }
+            isLoading.value = false;
+        } catch (err) {
+            console.log("Error at bookProvider: " + err);
+            isLoading.value = false;
+        }
+    };
+
     const getBook = async (id) => {
         isLoading.value = true;
         try {
@@ -122,6 +142,7 @@ export default function useBooks() {
         getRandomBook,
         getHighlyRatedBooks,
         getBook,
+        getBookByTitle,
         getBookByTag,
         limitText,
         toBookDetail,

@@ -6,7 +6,7 @@ const userLibrary = ref([]);
 export default function useLibrary() {
     const libraryLoading = ref(false);
     const { user } = useAuth();
-    const libraryIds = user.value.library;
+    let libraryIds = user.value.library;
 
     const addLibrary = async (data) => {
         libraryLoading.value = true;
@@ -16,6 +16,8 @@ export default function useLibrary() {
                 data
             );
             user.value.library.push(res.data);
+            libraryIds = user.value.library;
+            getUserLibrary();
             libraryLoading.value = false;
             alert("book added to library!");
         } catch (err) {
@@ -26,21 +28,26 @@ export default function useLibrary() {
 
     const removeLibrary = async (data) => {
         libraryLoading.value = true;
-        try {
-            const res = await axios.post(
-                "http://127.0.0.1:8000/api/library/delete",
-                data
-            );
-            for (let i in user.value.library) {
-                if (res.data == user.value.library[i]) {
-                    user.value.library.splice(i, 1);
+        if (
+            confirm("are you sure you want to remove this book from library?")
+        ) {
+            try {
+                const res = await axios.post(
+                    "http://127.0.0.1:8000/api/library/delete",
+                    data
+                );
+                for (let i in user.value.library) {
+                    if (res.data == user.value.library[i]) {
+                        user.value.library.splice(i, 1);
+                    }
                 }
+                libraryIds = user.value.library;
+                getUserLibrary();
+                libraryLoading.value = false;
+            } catch (err) {
+                console.log("Error at libraryProvider: " + err);
+                libraryLoading.value = false;
             }
-            libraryLoading.value = false;
-            alert("book removed from library!");
-        } catch (err) {
-            console.log("Error at libraryProvider: " + err);
-            libraryLoading.value = false;
         }
     };
 

@@ -103,6 +103,8 @@
                         class="placeholder:text-slate-400 block rounded-full text-black bg-white w-60 lg:w-80 border border-slate-300 py-1 pr-4 pl-10 shadow-sm focus:outline-none focus:ring-slate-500 focus:ring-1"
                         placeholder="Search here.."
                         type="text"
+                        v-model="searchInput"
+                        @keyup.enter="querySearch"
                     />
                 </label>
             </li>
@@ -240,26 +242,47 @@
 
 <script>
 import { ref, computed, onMounted } from "vue";
-import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute } from "vue-router";
+import {
+    onBeforeRouteLeave,
+    onBeforeRouteUpdate,
+    useRoute,
+    useRouter,
+} from "vue-router";
 import useAuth from "../../compossable/auth";
 import useTags from "../../compossable/tags";
 import useQuery from "../../compossable/query";
+import useBooks from "../../compossable/books";
 
 export default {
     setup() {
         const profileDropdownActive = ref(false);
         const browseDropdownActive = ref(false);
+        const searchInput = ref("");
 
         const route = useRoute();
+        const router = useRouter();
         const { user, logout } = useAuth();
         const { tags } = useTags();
 
-        const { toogleQueryTag, initQueryParams } = useQuery();
+        const { toogleQueryTag, initQueryParams, queryTitle, queries } =
+            useQuery();
+        const { getBookByTitle } = useBooks();
         initQueryParams();
 
         const authRoute = computed(() => {
             return route.name == "login" || route.name == "register";
         });
+
+        const querySearch = () => {
+            queryTitle.value = searchInput.value;
+            router.push({
+                name: "bookSearch",
+                query: { title: queryTitle.value },
+            });
+            getBookByTitle({ title: queryTitle.value });
+            queries.value = [];
+            searchInput.value = "";
+        };
 
         onBeforeRouteUpdate((to, from, next) => {
             profileDropdownActive.value = false;
@@ -287,12 +310,14 @@ export default {
         return {
             profileDropdownActive,
             browseDropdownActive,
-            toogleProfileDropdown,
-            toogleBrowseDropdown,
-            toogleQueryTag,
             tags,
             user,
             authRoute,
+            searchInput,
+            toogleProfileDropdown,
+            toogleBrowseDropdown,
+            toogleQueryTag,
+            querySearch,
             signOut,
         };
     },

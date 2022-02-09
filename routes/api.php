@@ -31,6 +31,7 @@ Route::get("/user/{id}", [UserController::class, 'show']);
 Route::get("/chapters/byBook/{id}", [ChapterController::class, 'byBook']);
 Route::get("/book/latest", [BookController::class, 'latest']);
 Route::get("/book/byTag", [BookController::class, 'byTag']);
+Route::get("/book/byTitle", [BookController::class, 'byTitle']);
 Route::get("/book/highlyrated", [BookController::class, 'highlyRated']);
 Route::get("/book/random", [BookController::class, 'random']);
 Route::get("/book/{id}", [BookController::class, 'show']);

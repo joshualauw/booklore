@@ -56,7 +56,7 @@
                 class="py-2 px-4 mt-3 text-white text-center w-full rounded-lg shadow-sm bg-primary hover:opacity-80"
             >
                 <p v-if="!isLoading">Login</p>
-                <i v-else class="fas fa-spinner fa-pulse"></i>
+                <i v-else class="fa-solid fa-spinner fa-spin"></i>
             </button>
         </div>
         <p v-for="err in errors" :key="err" class="text-primary text-left">

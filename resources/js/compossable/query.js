@@ -4,22 +4,29 @@ import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
 
 let queries = ref([]);
+let queryTitle = ref("");
 export default function useQuery() {
     const route = useRoute();
     const router = useRouter();
     const { tags } = useTags();
-    const { queryBooks, getBookByTag } = useBooks();
+    const { queryBooks, getBookByTag, getBookByTitle } = useBooks();
 
     const initQueryParams = () => {
         queries.value = [];
-        if (typeof route.query.tags === "string") {
-            queries.value.push(route.query.tags);
-        } else {
-            for (let i in route.query.tags) {
-                queries.value.push(route.query.tags[i]);
+        getBookByTitle({ title: "" });
+        if (route.query.title) {
+            queryTitle.value = route.query.title;
+            getBookByTitle({ title: queryTitle.value });
+        } else if (route.query.tags) {
+            if (typeof route.query.tags === "string") {
+                queries.value.push(route.query.tags);
+            } else {
+                for (let i in route.query.tags) {
+                    queries.value.push(route.query.tags[i]);
+                }
             }
+            getBookByTag({ tags: queries.value });
         }
-        getBookByTag({ tags: queries.value });
     };
 
     const isActive = (tag) => {
@@ -32,6 +39,7 @@ export default function useQuery() {
     };
 
     const toogleQueryTag = (tag, setOnly) => {
+        queryTitle.value = "";
         for (let i in queries.value) {
             if (queries.value[i] == tag) {
                 if (setOnly) {
@@ -59,6 +67,7 @@ export default function useQuery() {
     return {
         tags,
         queryBooks,
+        queryTitle,
         queries,
         toogleQueryTag,
         initQueryParams,

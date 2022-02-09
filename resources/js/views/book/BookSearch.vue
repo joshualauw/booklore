@@ -1,6 +1,9 @@
 <template>
     <div class="mx-12 md:mx-56 my-12">
         <h1 class="text-3xl font-semibold mb-5">Search Books</h1>
+        <h1 v-if="queryTitle" class="text-xl font-semibold mb-5">
+            Keyword: "{{ queryTitle }}"
+        </h1>
         <span
             v-for="tag in tags"
             :key="tag"
@@ -47,7 +50,15 @@
         >
             <loader color="#fbbf24"></loader>
         </div>
-        <book-grid v-else class="mt-4" :books="queryBooks"></book-grid>
+        <div v-else>
+            <p
+                v-if="queryBooks.length == 0"
+                class="w-full h-[60vh] flex justify-center items-center text-center text-xl font-semibold"
+            >
+                Results not Found
+            </p>
+            <book-grid v-else class="mt-4" :books="queryBooks"></book-grid>
+        </div>
     </div>
 </template>
 
@@ -57,7 +68,8 @@ import BookGrid from "./BookGrid.vue";
 import useTags from "../../compossable/tags";
 import useBooks from "../../compossable/books";
 import useQuery from "../../compossable/query";
-import { onBeforeRouteLeave } from "vue-router";
+import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute } from "vue-router";
+import { ref } from "@vue/reactivity";
 
 export default {
     components: {
@@ -66,15 +78,9 @@ export default {
     },
     setup() {
         const { tags } = useTags();
-        const {
-            queryBooks,
-            queries,
-            isActive,
-            toogleQueryTag,
-            initQueryParams,
-        } = useQuery();
+        const { queryBooks, queries, queryTitle, isActive, toogleQueryTag } =
+            useQuery();
         const { isLoading } = useBooks();
-        initQueryParams();
 
         onBeforeRouteLeave((to, from, next) => {
             queries.value = [];
@@ -85,6 +91,7 @@ export default {
             tags,
             toogleQueryTag,
             isActive,
+            queryTitle,
             queryBooks,
             isLoading,
         };

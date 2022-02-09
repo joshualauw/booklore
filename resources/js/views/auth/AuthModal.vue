@@ -7,7 +7,7 @@
                 class="w-1/2 text-center cursor-pointer py-2 rounded-l-full"
                 :class="{
                     'bg-primary text-white': tabActive == 'login',
-                    'border border-black': tabActive != 'login',
+                    'border-2 bg-white ': tabActive != 'login',
                 }"
             >
                 Login
@@ -17,7 +17,7 @@
                 class="w-1/2 text-center cursor-pointer py-2 rounded-r-full"
                 :class="{
                     'bg-primary text-white': tabActive == 'register',
-                    'border border-black': tabActive != 'register',
+                    'border-2 bg-white ': tabActive != 'register',
                 }"
             >
                 Register
