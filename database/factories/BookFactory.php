@@ -17,7 +17,7 @@ class BookFactory extends Factory
             'title' => $this->faker->word(),
             "description" => $this->faker->text(400),
             "image" => "https://edit.org/images/cat/book-covers-big-2019101610.jpg",
-            "isPublic" => 1
+            "isPublic" => 1,
         ];
     }
 }

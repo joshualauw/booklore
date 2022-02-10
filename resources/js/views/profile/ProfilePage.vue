@@ -44,10 +44,30 @@
             class="w-full md:w-1/3 md:h-fit bg-white rounded-lg shadow-lg mt-5 p-5"
         >
             Bio
+            <div v-if="user.notifications && user.notifications.length > 0">
+                <button
+                    @click="readFollowerNotify"
+                    class="hover:underline text-primary my-3"
+                >
+                    Mark as Read
+                </button>
+                <p
+                    v-for="notify in user.notifications"
+                    :key="notify"
+                    class="text-white px-2 py-1 rounded-lg bg-primary mb-2"
+                >
+                    {{ notify.data.message }}
+                </p>
+            </div>
             <p class="mt-4 mb-1 text-lg font-semibold">
                 {{ userProfile.username }} Followers
             </p>
-            <p v-if="userProfile.followers.length == 0" class="my-2 text-lg">
+            <p
+                v-if="
+                    userProfile.followers && userProfile.followers.length == 0
+                "
+                class="my-2 text-lg"
+            >
                 -
             </p>
             <img
@@ -62,7 +82,12 @@
             <p class="mt-4 mb-1 text-lg font-semibold">
                 {{ userProfile.username }} Followings
             </p>
-            <p v-if="userProfile.followings.length == 0" class="my-2 text-lg">
+            <p
+                v-if="
+                    userProfile.followings && userProfile.followings.length == 0
+                "
+                class="my-2 text-lg"
+            >
                 -
             </p>
             <img
@@ -79,7 +104,7 @@
             v-if="userProfile.writings"
             class="w-full md:w-2/3 bg-white rounded-lg shadow-lg mt-5 p-5"
         >
-            <div v-if="userProfile.id != user.id">
+            <div v-if="user.id && userProfile.id != user.id">
                 <button
                     v-if="!isFollowed(userProfile)"
                     @click="followUser(userProfile)"
@@ -134,7 +159,8 @@ export default {
             userWritings,
         } = useProfile();
         const { user } = useAuth();
-        const { followUser, unfollowUser, isFollowed } = useFollows();
+        const { followUser, unfollowUser, isFollowed, readFollowerNotify } =
+            useFollows();
 
         const router = useRouter();
 
@@ -161,6 +187,7 @@ export default {
             isFollowed,
             followUser,
             unfollowUser,
+            readFollowerNotify,
         };
     },
 };

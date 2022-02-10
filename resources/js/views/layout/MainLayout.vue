@@ -109,25 +109,35 @@
                 </label>
             </li>
             <li v-if="user">
-                <button class="hidden md:block hover:opacity-80">Write</button>
-            </li>
-            <li v-if="user">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6 block md:hidden cursor-pointer hover:opacity-80"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
+                <router-link
+                    :to="{ name: 'write' }"
+                    class="hidden md:block hover:opacity-80"
+                    >Write</router-link
                 >
-                    <path
-                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-                    />
-                </svg>
+                <router-link :to="{ name: 'write' }">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 block md:hidden cursor-pointer hover:opacity-80"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+                        />
+                    </svg>
+                </router-link>
             </li>
             <li
                 v-if="user"
-                class="flex items-center hover:opacity-80 cursor-pointer"
+                class="flex items-center hover:opacity-80 cursor-pointer relative"
                 @click="toogleProfileDropdown"
             >
+                <div
+                    v-if="user.notifications && user.notifications.length > 0"
+                    class="w-4 h-4 justify-center items-center rounded-full bg-primary text-sm text-white text-center absolute -top-1 -left-1"
+                >
+                    !
+                </div>
                 <img
                     :src="user.profile"
                     :alt="user.id"
@@ -178,11 +188,19 @@
             <div class="py-1" role="none">
                 <router-link
                     :to="{ name: 'profile', params: { id: user.id } }"
-                    class="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 border-gray-200"
+                    class="text-gray-700 justify-between block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 border-gray-200"
                     role="menuitem"
                     tabindex="-1"
                 >
                     My Profile
+                    <span
+                        v-if="
+                            user.notifications && user.notifications.length > 0
+                        "
+                        class="px-2 rounded-full bg-secondary ml-3"
+                    >
+                        {{ user.notifications.length }}</span
+                    >
                 </router-link>
                 <button
                     class="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-200 border-gray-200"
@@ -268,8 +286,6 @@ export default {
             useQuery();
         const { getBookByTitle } = useBooks();
         initQueryParams();
-
-        console.log(user.value);
 
         const authRoute = computed(() => {
             return route.name == "login" || route.name == "register";

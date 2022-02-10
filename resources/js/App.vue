@@ -33,8 +33,12 @@ export default {
         const userInfo = sessionStorage.getItem("user");
         if (userInfo) {
             const userData = JSON.parse(userInfo);
-            sessionStorage.setItem("user", JSON.stringify(userData));
+            // sessionStorage.setItem("user", JSON.stringify(userData));
             user.value = userData.user;
+            const updatedUser = sessionStorage.getItem("updatedUser");
+            if (updatedUser) {
+                user.value = JSON.parse(updatedUser);
+            }
             axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`;
         }
         axios.interceptors.response.use(

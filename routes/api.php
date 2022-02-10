@@ -27,6 +27,9 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
   Route::get("/library/byUser/{id}", [LibraryController::class, 'byUser']);
   Route::post("/user/follow", [FollowController::class, 'follow']);
   Route::post("/user/unfollow", [FollowController::class, 'unfollow']);
+  Route::post("/user/newFollowerNotify", [UserController::class, 'newFollowerNotify']);
+  Route::post("/user/getNewFollowerNotification", [UserController::class, 'getNewFollowerNotification']);
+  Route::post("/user/readFollowerNotify", [UserController::class, 'readFollowerNotify']);
 });
 
 Route::get("/book/byUser/{id}", [BookController::class, 'byUser']);

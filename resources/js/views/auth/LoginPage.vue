@@ -81,8 +81,8 @@ export default {
         AuthForm,
     },
     setup() {
-        const email = ref("");
-        const password = ref("");
+        const email = ref("joshualauw1@gmail.com");
+        const password = ref("123456");
         const router = useRouter();
 
         const { login, errors, isLoading } = useAuth();

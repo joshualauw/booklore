@@ -15,7 +15,8 @@ class ChapterFactory extends Factory
     {
         return [
             "title" => $this->faker->word(),
-            "text" => $this->faker->text(1000)
+            "text" => $this->faker->text(1000),
+            "isPublic" => true
         ];
     }
 }
