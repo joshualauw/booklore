@@ -8,11 +8,12 @@
     <div v-else class="mx-12 md:mx-56 my-12">
         <div class="flex justify-between items-center">
             <h1 class="text-3xl font-semibold mb-5">Your Books</h1>
-            <button
+            <router-link
+                :to="{ name: 'write.new' }"
                 class="px-3 py-1 rounded-lg bg-primary text-white hover:opacity-80"
             >
                 Write a Story
-            </button>
+            </router-link>
         </div>
         <div class="bg-white rounded-lg shadow-lg mt-5 p-5">
             <div
@@ -102,14 +103,16 @@
                     class="flex flex-col justify-center items-center space-y-4"
                 >
                     <button
-                        class="px-3 py-1 rounded-lg bg-sky-500 text-white hover:opacity-80 w-full"
+                        class="px-3 py-3 md:py-2 rounded-lg flex justify-between items-center text-center bg-lightgray hover:opacity-80 w-full"
                     >
-                        Continue Writing
+                        <span class="hidden md:block">Continue Writing</span>
+                        <i class="fa-solid fa-pencil md:ml-5"></i>
                     </button>
                     <button
-                        class="px-3 py-1 rounded-lg bg-primary text-white hover:opacity-80 w-full"
+                        class="px-3 py-3 md:py-2 rounded-lg flex justify-between items-center text-center bg-primary text-white hover:opacity-80 w-full"
                     >
-                        Delete Story
+                        <span class="hidden md:block">Delete Story</span>
+                        <i class="fa-solid fa-trash-can md:ml-5"></i>
                     </button>
                 </div>
             </div>

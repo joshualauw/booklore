@@ -21,6 +21,7 @@ class CreateBooksTable extends Migration
             $table->mediumText("image");
             $table->boolean("isPublic");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

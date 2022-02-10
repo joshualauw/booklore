@@ -8,6 +8,7 @@ import BookSearch from "./views/book/BookSearch.vue";
 import LibraryPage from "./views/library/LibraryPage.vue";
 import ProfilePage from "./views/profile/ProfilePage.vue";
 import WritePage from "./views/write/WritePage.vue";
+import WriteNewPage from "./views/write/WriteNewPage.vue";
 import NotFound from "./views/NotFoundPage.vue";
 
 const routes = [
@@ -35,6 +36,14 @@ const routes = [
                 path: "/write",
                 component: WritePage,
                 name: "write",
+                meta: {
+                    auth: true,
+                },
+            },
+            {
+                path: "/write/new",
+                component: WriteNewPage,
+                name: "write.new",
                 meta: {
                     auth: true,
                 },
