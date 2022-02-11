@@ -13,7 +13,7 @@
                 <img
                     :src="bookDetail.image"
                     :alt="bookDetail.title"
-                    class="w-40 h-60 md:w-52 md:h-72 rounded-lg shadow-lg"
+                    class="w-40 h-60 md:w-48 md:h-72 rounded-lg shadow-lg"
                 />
                 <div>
                     <h1 class="uppercase text-2xl font-bold">

@@ -99,12 +99,13 @@
                         <button
                             class="bg-primary hover:opacity-80 text-white w-full rounded-md mt-3 p-2"
                         >
-                            Create
+                            Update Book
                         </button>
                     </div>
                 </div>
             </div>
         </form>
+        <book-chapters :id="bookId"></book-chapters>
     </div>
 </template>
 
@@ -114,11 +115,17 @@ import useTags from "../../compossable/tags";
 import useBooks from "../../compossable/books";
 import useAuth from "../../compossable/auth";
 import { useRouter } from "vue-router";
+import BookChapters from "./BookChapters.vue";
 
 export default {
-    setup() {
+    props: ["id"],
+    components: {
+        BookChapters,
+    },
+    setup(props) {
         const { tags } = useTags();
-        const { addBook, updateBookCover, errors } = useBooks();
+        const { updateBook, getBook, bookDetail, updateBookCover, errors } =
+            useBooks();
         const { user } = useAuth();
         const router = useRouter();
 
@@ -130,6 +137,19 @@ export default {
         const realCover = ref("");
         const newTitle = ref("");
         const newDescription = ref("");
+
+        if (props.id) {
+            getBook(props.id).then(() => {
+                console.log(bookDetail.value);
+                newTitle.value = bookDetail.value.title;
+                newDescription.value = bookDetail.value.description;
+                for (let i in bookDetail.value.tags) {
+                    storyTag.value.push(bookDetail.value.tags[i]);
+                }
+                showPreview.value = true;
+                imagePreview.value = bookDetail.value.image;
+            });
+        }
 
         const addTags = () => {
             let invalid = false;
@@ -147,8 +167,7 @@ export default {
         };
 
         const submitForm = async () => {
-            const res = await addBook({
-                user_id: user.value.id,
+            const res = await updateBook(props.id, {
                 title: newTitle.value,
                 description: newDescription.value,
                 tags: storyTag.value,
@@ -158,7 +177,7 @@ export default {
                 data.append("image", realCover.value);
                 const res2 = await updateBookCover(res, data);
                 if (res2) {
-                    alert("Book Created!");
+                    alert("Book Updated!");
                     router.push({ name: "write" });
                 }
             }
@@ -201,6 +220,7 @@ export default {
             showPreview,
             imagePreview,
             errors,
+            bookId: props.id,
             addTags,
             removeTags,
             submitForm,

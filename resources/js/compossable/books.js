@@ -126,9 +126,12 @@ export default function useBooks() {
     const addBook = async (data) => {
         isLoading.value = true;
         try {
-            await axios.post("http://127.0.0.1:8000/api/book/create", data);
+            const res = await axios.post(
+                "http://127.0.0.1:8000/api/book/create",
+                data
+            );
             isLoading.value = false;
-            return true;
+            return res.data.id;
         } catch (err) {
             console.log("Error at bookProvider: " + err);
             const errorsTemp = err.response.data.errors;
@@ -141,11 +144,32 @@ export default function useBooks() {
         }
     };
 
-    const updateBookCover = async (data) => {
+    const updateBook = async (id, data) => {
+        isLoading.value = true;
+        try {
+            const res = await axios.put(
+                "http://127.0.0.1:8000/api/book/update/" + id,
+                data
+            );
+            isLoading.value = false;
+            return res.data.id;
+        } catch (err) {
+            console.log("Error at bookProvider: " + err);
+            const errorsTemp = err.response.data.errors;
+            errors.value = [];
+            for (let i in errorsTemp) {
+                errors.value.push(errorsTemp[i][0]);
+            }
+            isLoading.value = false;
+            return false;
+        }
+    };
+
+    const updateBookCover = async (bookId, data) => {
         isLoading.value = true;
         try {
             await axios.post(
-                "http://127.0.0.1:8000/api/book/updateBookCover",
+                "http://127.0.0.1:8000/api/book/updateBookCover/" + bookId,
                 data,
                 {
                     headers: {
@@ -189,5 +213,6 @@ export default function useBooks() {
         toBookDetail,
         updateBookCover,
         addBook,
+        updateBook,
     };
 }

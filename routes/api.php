@@ -32,22 +32,21 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
   Route::post("/user/getNewFollowerNotification", [UserController::class, 'getNewFollowerNotification']);
   Route::post("/user/readFollowerNotify", [UserController::class, 'readFollowerNotify']);
   Route::post("/book/create", [BookController::class, 'create']);
-  Route::post("/book/updateBookCover", [BookController::class, 'updateBookCover']);
+  Route::put("/book/update/{id}", [BookController::class, 'update']);
+  Route::post("/book/updateBookCover/{id}", [BookController::class, 'updateBookCover']);
+  Route::get("/chapter/{id}", [ChapterController::class, 'show']);
 });
 
-Route::get("/test", function () {
-  // $data = collect(Book::all()->first()->chapters())->map(function ($chapter) {
-  //   return $chapter;
-  // });
-  $data = collect(Book::find(11)->chapters)->map(function ($chapter) {
-    return $chapter->votes()->where('isView', true)->count();
-  })->sum();
-  return response($data);
-});
+// Route::get("/test", function () {
+//   $data = collect(Book::find(11)->chapters)->map(function ($chapter) {
+//     return $chapter->votes()->where('isView', true)->count();
+//   })->sum();
+//   return response($data);
+// });
 
 Route::get("/book/byUser/{id}", [BookController::class, 'byUser']);
 Route::get("/user/{id}", [UserController::class, 'show']);
-Route::get("/chapters/byBook/{id}", [ChapterController::class, 'byBook']);
+Route::get("/chapter/byBook/{id}", [ChapterController::class, 'byBook']);
 Route::get("/book/latest", [BookController::class, 'latest']);
 Route::get("/book/byTag", [BookController::class, 'byTag']);
 Route::get("/book/byTitle", [BookController::class, 'byTitle']);

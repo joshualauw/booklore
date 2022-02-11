@@ -4,6 +4,7 @@ import App from "./App.vue";
 
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import "@vueup/vue-quill/dist/vue-quill.bubble.css";
 import TheModal from "./views/ui/TheModal.vue";
 import Loader from "vue-spinner/src/SyncLoader.vue";
 

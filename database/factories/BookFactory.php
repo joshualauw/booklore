@@ -16,7 +16,6 @@ class BookFactory extends Factory
         return [
             'title' => $this->faker->word(),
             "description" => $this->faker->text(400),
-            "isPublic" => 1,
         ];
     }
 }

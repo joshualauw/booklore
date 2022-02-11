@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -22,8 +23,12 @@ class UserResource extends JsonResource
             "background" => $this->background,
             "phone" => $this->phone,
             "library" => $this->libraries()->pluck("books.id"),
-            "writings" => $this->books()->where("isPublic", true)->pluck("books.id"),
-            "draft" => $this->books()->where("isPublic", false)->pluck("books.id"),
+            "writings" => $this->books()->whereHas("chapters", function (Builder $query) {
+                $query->where('isPublic', true);
+            })->pluck("books.id"),
+            "draft" => $this->books()->whereHas("chapters", function (Builder $query) {
+                $query->where('isPublic', false);
+            })->pluck("books.id"),
             "followers" => $this->followers()->select("users.id as id", "username", "profile")->get(),
             "followings" => $this->followings()->select("users.id as id", "username", "profile")->get(),
             "notifications" => $this->unreadNotifications,

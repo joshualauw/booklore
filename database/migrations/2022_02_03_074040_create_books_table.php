@@ -19,7 +19,6 @@ class CreateBooksTable extends Migration
             $table->string("title");
             $table->text("description");
             $table->text("image")->default("https://edit.org/images/cat/book-covers-big-2019101610.jpg");
-            $table->boolean("isPublic")->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

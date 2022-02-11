@@ -9,6 +9,8 @@ import LibraryPage from "./views/library/LibraryPage.vue";
 import ProfilePage from "./views/profile/ProfilePage.vue";
 import WritePage from "./views/write/WritePage.vue";
 import WriteNewPage from "./views/write/WriteNewPage.vue";
+import UpdatePage from "./views/write/UpdatePage.vue";
+import ChapterEdit from "./views/chapter/ChapterEdit.vue";
 import NotFound from "./views/NotFoundPage.vue";
 
 const routes = [
@@ -44,6 +46,23 @@ const routes = [
                 path: "/write/new",
                 component: WriteNewPage,
                 name: "write.new",
+                meta: {
+                    auth: true,
+                },
+            },
+            {
+                path: "/write/update/:id",
+                component: UpdatePage,
+                name: "write.update",
+                props: true,
+                meta: {
+                    auth: true,
+                },
+            },
+            {
+                path: "/chapter/edit/:id",
+                component: ChapterEdit,
+                name: "chapterEdit",
                 props: true,
                 meta: {
                     auth: true,
