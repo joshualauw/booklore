@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Library;
 use Illuminate\Http\Request;
 use App\Http\Resources\BookResource;
+use Illuminate\Database\Eloquent\Builder;
 
 class LibraryController extends Controller
 {
@@ -31,7 +32,9 @@ class LibraryController extends Controller
     public function byUser(Request $request, $id)
     {
         $user = User::find($id);
-        $userLibrary = BookResource::collection($user->libraries()->where('isPublic', true)->get());
+        $userLibrary = BookResource::collection($user->libraries()->whereHas("chapters", function (Builder $query) {
+            $query->where('isPublic', true);
+        })->get());
         return response($userLibrary);
     }
 }
