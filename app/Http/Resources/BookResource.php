@@ -24,11 +24,18 @@ class BookResource extends JsonResource
             "chapterLastUpdate" => Chapter::orderBy("created_at", "desc")->pluck("created_at")->first()->diffForHumans(),
             "chapters" => count($this->chapters()->where("isPublic", true)->pluck('id')),
             "drafts" => count($this->chapters()->where("isPublic", false)->pluck('id')),
-            "views" => count($this->votes()->where('isView', 1)->get()),
-            "votes" => count($this->votes()->where('isVote', 1)->get()),
+            "views" => collect($this->chapters)->map(function ($chapter) {
+                return $chapter->votes()->where("isView", 1)->count();
+            })->sum(),
+            "votes" => collect($this->chapters)->map(function ($chapter) {
+                return $chapter->votes()->where("isVote", 1)->count();
+            })->sum(),
             "tags" => $this->tags()->pluck("text"),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at
         ];
     }
+
+    //[a, b, c]
+    //[2, 4, 6]
 }

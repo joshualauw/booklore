@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             BookSeeder::class,
             ChapterSeeder::class,
-            ReviewSeeder::class,
             VoteSeeder::class,
             BookTagSeeder::class,
             LibrarySeeder::class

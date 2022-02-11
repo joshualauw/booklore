@@ -35,14 +35,4 @@ class Book extends Model
     {
         return $this->hasMany(Chapter::class);
     }
-
-    public function reviews()
-    {
-        return $this->belongsToMany(User::class, "reviews");
-    }
-
-    public function votes()
-    {
-        return $this->belongsToMany(User::class, "votes");
-    }
 }

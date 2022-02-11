@@ -44,6 +44,7 @@ const routes = [
                 path: "/write/new",
                 component: WriteNewPage,
                 name: "write.new",
+                props: true,
                 meta: {
                     auth: true,
                 },

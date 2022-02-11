@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Book;
+use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\BookResource;
-use App\Models\Tag;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 
 class BookController extends Controller
@@ -63,5 +64,40 @@ class BookController extends Controller
     {
         $book = new BookResource(Book::find($id));
         return response($book);
+    }
+
+    public function create(Request $request)
+    {
+        $request->validate([
+            "title" => 'required',
+            "description" => 'required',
+            'tags' => 'array|required'
+        ], [
+            "title.required" => "Book Title is required",
+            "description.required" => 'Book Description is required',
+            "tags.required" => "Book must have at least one tag"
+        ]);
+
+        $newBook = Book::create([
+            'user_id' => $request->user_id,
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        foreach ($request->tags as $tag) {
+            $t = Tag::where("text", $tag)->first();
+            $newBook->tags()->attach($t->id);
+        }
+    }
+
+    public function updateBookCover(Request $request)
+    {
+        $newBook = Book::latest()->first();
+        if ($request->file()) {
+            $file_name = $newBook->id . "." . $request->file('image')->getClientOriginalExtension();
+            $file_path = $request->file('image')->storeAs('covers', $file_name, 'public');
+            $newBook->image = '/storage/' . $file_path;
+            $newBook->save();
+        }
     }
 }

@@ -18,8 +18,8 @@ class CreateBooksTable extends Migration
             $table->foreignId('user_id');
             $table->string("title");
             $table->text("description");
-            $table->mediumText("image");
-            $table->boolean("isPublic");
+            $table->text("image")->default("https://edit.org/images/cat/book-covers-big-2019101610.jpg");
+            $table->boolean("isPublic")->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

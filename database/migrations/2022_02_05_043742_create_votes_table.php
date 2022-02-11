@@ -16,8 +16,8 @@ class CreateVotesTable extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id");
-            $table->foreignId("book_id");
-            $table->boolean("isView");
+            $table->foreignId("chapter_id");
+            $table->boolean("isView")->default(true);
             $table->boolean("isVote");
             $table->timestamps();
         });

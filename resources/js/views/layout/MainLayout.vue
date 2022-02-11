@@ -1,6 +1,6 @@
 <template>
     <div
-        class="py-3 w-full flex justify-center md:justify-between sticky top-0 bg-white items-center shadow-md px-4 md:px-10 z-10"
+        class="py-3 w-full flex justify-center md:justify-between sticky top-0 bg-white items-center shadow-md px-4 md:px-10 z-50"
     >
         <router-link
             v-if="!authRoute"

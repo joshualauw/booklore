@@ -11,6 +11,7 @@ const bookDetail = ref({});
 export default function useBooks() {
     const isLoading = ref(false);
     const router = useRouter();
+    const errors = ref([]);
 
     const getLatestBooks = async () => {
         isLoading.value = true;
@@ -122,6 +123,45 @@ export default function useBooks() {
         }
     };
 
+    const addBook = async (data) => {
+        isLoading.value = true;
+        try {
+            await axios.post("http://127.0.0.1:8000/api/book/create", data);
+            isLoading.value = false;
+            return true;
+        } catch (err) {
+            console.log("Error at bookProvider: " + err);
+            const errorsTemp = err.response.data.errors;
+            errors.value = [];
+            for (let i in errorsTemp) {
+                errors.value.push(errorsTemp[i][0]);
+            }
+            isLoading.value = false;
+            return false;
+        }
+    };
+
+    const updateBookCover = async (data) => {
+        isLoading.value = true;
+        try {
+            await axios.post(
+                "http://127.0.0.1:8000/api/book/updateBookCover",
+                data,
+                {
+                    headers: {
+                        "content-type": "multipart/form-data",
+                    },
+                }
+            );
+            isLoading.value = false;
+            return true;
+        } catch (err) {
+            console.log("Error at bookProvider: " + err);
+            isLoading.value = false;
+            return false;
+        }
+    };
+
     const limitText = (str, limit) => {
         if (str) {
             if (str.length > limit) {
@@ -138,6 +178,7 @@ export default function useBooks() {
         highlyRatedBooks,
         bookDetail,
         queryBooks,
+        errors,
         getLatestBooks,
         getRandomBook,
         getHighlyRatedBooks,
@@ -146,5 +187,7 @@ export default function useBooks() {
         getBookByTag,
         limitText,
         toBookDetail,
+        updateBookCover,
+        addBook,
     };
 }

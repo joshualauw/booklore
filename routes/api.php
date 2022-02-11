@@ -7,6 +7,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,18 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
   Route::post("/user/newFollowerNotify", [UserController::class, 'newFollowerNotify']);
   Route::post("/user/getNewFollowerNotification", [UserController::class, 'getNewFollowerNotification']);
   Route::post("/user/readFollowerNotify", [UserController::class, 'readFollowerNotify']);
+  Route::post("/book/create", [BookController::class, 'create']);
+  Route::post("/book/updateBookCover", [BookController::class, 'updateBookCover']);
+});
+
+Route::get("/test", function () {
+  // $data = collect(Book::all()->first()->chapters())->map(function ($chapter) {
+  //   return $chapter;
+  // });
+  $data = collect(Book::find(11)->chapters)->map(function ($chapter) {
+    return $chapter->votes()->where('isView', true)->count();
+  })->sum();
+  return response($data);
 });
 
 Route::get("/book/byUser/{id}", [BookController::class, 'byUser']);

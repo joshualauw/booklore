@@ -14,7 +14,6 @@ class VoteFactory extends Factory
     public function definition()
     {
         return [
-            "isView" => $this->faker->boolean(),
             "isVote" => $this->faker->boolean()
         ];
     }

@@ -102,12 +102,13 @@
                 <div
                     class="flex flex-col justify-center items-center space-y-4"
                 >
-                    <button
+                    <router-link
+                        :to="{ name: 'write.new', params: { id: book.id } }"
                         class="px-3 py-3 md:py-2 rounded-lg flex justify-between items-center text-center bg-lightgray hover:opacity-80 w-full"
                     >
-                        <span class="hidden md:block">Continue Writing</span>
+                        <span class="hidden md:block">Edit Story</span>
                         <i class="fa-solid fa-pencil md:ml-5"></i>
-                    </button>
+                    </router-link>
                     <button
                         class="px-3 py-3 md:py-2 rounded-lg flex justify-between items-center text-center bg-primary text-white hover:opacity-80 w-full"
                     >

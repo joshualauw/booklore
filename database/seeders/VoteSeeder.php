@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Book;
+use App\Models\Chapter;
 use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Database\Seeder;
@@ -17,11 +17,11 @@ class VoteSeeder extends Seeder
      */
     public function run()
     {
-        Vote::factory()->count(200)->state(new Sequence(
+        Vote::factory()->count(500)->state(new Sequence(
             function () {
                 return [
                     "user_id" => User::all()->random(),
-                    "book_id" => Book::all()->random()
+                    "chapter_id" => Chapter::all()->random()
                 ];
             }
         ))->create();
