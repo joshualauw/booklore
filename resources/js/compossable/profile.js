@@ -18,11 +18,16 @@ export default function useProfile() {
         }
     };
 
-    const getUserWritings = async (id) => {
+    const getUserWritings = async (id, queryAll) => {
         profileLoading.value = true;
         try {
             const res = await axios.get(
-                "http://127.0.0.1:8000/api/book/byUser/" + id
+                "http://127.0.0.1:8000/api/book/byUser/" + id,
+                {
+                    params: {
+                        queryAll,
+                    },
+                }
             );
             userWritings.value = [];
             for (let i in res.data) {

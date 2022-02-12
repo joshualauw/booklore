@@ -6,8 +6,8 @@
         <loader color="#fbbf24"></loader>
     </div>
     <div v-else class="mx-12 md:mx-56 my-12">
-        <div class="flex justify-between items-center">
-            <h1 class="text-3xl font-semibold mb-5">Your Books</h1>
+        <div class="flex justify-between items-center mb-5">
+            <h1 class="text-3xl font-semibold">Your Books</h1>
             <router-link
                 :to="{ name: 'write.new' }"
                 class="px-3 py-1 rounded-lg bg-primary text-white hover:opacity-80"
@@ -128,7 +128,7 @@ export default {
     setup() {
         const { getUserWritings, userWritings, profileLoading } = useProfile();
         const { user } = useAuth();
-        getUserWritings(user.value.id);
+        getUserWritings(user.value.id, true);
 
         return {
             userWritings,

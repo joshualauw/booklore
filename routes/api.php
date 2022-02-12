@@ -26,15 +26,21 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
   Route::post("/library/create", [LibraryController::class, 'store']);
   Route::post("/library/delete", [LibraryController::class, 'delete']);
   Route::get("/library/byUser/{id}", [LibraryController::class, 'byUser']);
+
   Route::post("/user/follow", [FollowController::class, 'follow']);
   Route::post("/user/unfollow", [FollowController::class, 'unfollow']);
   Route::post("/user/newFollowerNotify", [UserController::class, 'newFollowerNotify']);
   Route::post("/user/getNewFollowerNotification", [UserController::class, 'getNewFollowerNotification']);
   Route::post("/user/readFollowerNotify", [UserController::class, 'readFollowerNotify']);
+
   Route::post("/book/create", [BookController::class, 'create']);
   Route::put("/book/update/{id}", [BookController::class, 'update']);
   Route::post("/book/updateBookCover/{id}", [BookController::class, 'updateBookCover']);
+
   Route::get("/chapter/{id}", [ChapterController::class, 'show']);
+  Route::post("/chapter/create", [ChapterController::class, 'create']);
+  Route::put("/chapter/update/{id}", [ChapterController::class, 'update']);
+  Route::put("/chapter/publish/{id}", [ChapterController::class, 'publish']);
 });
 
 // Route::get("/test", function () {
@@ -44,15 +50,19 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
 //   return response($data);
 // });
 
-Route::get("/book/byUser/{id}", [BookController::class, 'byUser']);
 Route::get("/user/{id}", [UserController::class, 'show']);
+
 Route::get("/chapter/byBook/{id}", [ChapterController::class, 'byBook']);
+
+Route::get("/book/byUser/{id}", [BookController::class, 'byUser']);
 Route::get("/book/latest", [BookController::class, 'latest']);
 Route::get("/book/byTag", [BookController::class, 'byTag']);
 Route::get("/book/byTitle", [BookController::class, 'byTitle']);
 Route::get("/book/highlyrated", [BookController::class, 'highlyRated']);
 Route::get("/book/random", [BookController::class, 'random']);
 Route::get("/book/{id}", [BookController::class, 'show']);
+
 Route::get("/tag", [TagController::class, 'index']);
+
 Route::post("/login", [AuthController::class, 'login']);
 Route::post("/register", [AuthController::class, 'register']);

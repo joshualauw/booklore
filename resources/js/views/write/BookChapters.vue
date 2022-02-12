@@ -1,6 +1,14 @@
 <template>
-    <form class="bg-white rounded-lg shadow-lg w-full mt-10 p-5">
-        <h1 class="text-2xl font-semibold mb-4">Table of Contents</h1>
+    <div class="bg-white rounded-lg shadow-lg w-full mt-10 p-5">
+        <div class="flex items-center justify-between mb-5">
+            <h1 class="text-2xl font-semibold">Table of Contents</h1>
+            <button
+                @click="addChapter"
+                class="px-3 py-2 rounded-lg bg-lightgray hover:opacity-80"
+            >
+                Add Chapter +
+            </button>
+        </div>
         <router-link
             :to="{ name: 'chapterEdit', params: { id: chapter.id } }"
             v-for="chapter in bookChapters"
@@ -8,9 +16,19 @@
             class="my-2 text-lg w-full p-2 hover:bg-lightgray flex items-center justify-between cursor-pointer rounded-lg"
         >
             {{ chapter.title }}
+
             <div
                 class="flex space-x-2 md:space-x-5 justify-center items-center mb-2"
             >
+                <p
+                    v-if="!chapter.isPublic"
+                    class="bg-secondary text-sm rounded-full px-2"
+                >
+                    Draft
+                </p>
+                <p v-else class="bg-sky-200 text-sm rounded-full px-2">
+                    Public
+                </p>
                 <div class="flex items-center">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -53,19 +71,29 @@
                 </div>
             </div>
         </router-link>
-    </form>
+    </div>
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 import useChapter from "../../compossable/chapter";
 export default {
     props: ["id"],
     setup(props) {
-        const { getChaptersByBookId, bookChapters } = useChapter();
-        getChaptersByBookId(props.id);
+        const { getChaptersByBookId, bookChapters, createChapter } =
+            useChapter();
+        const router = useRouter();
+        getChaptersByBookId(props.id, true);
+
+        const addChapter = async () => {
+            await createChapter({
+                book_id: props.id,
+            });
+        };
 
         return {
             bookChapters,
+            addChapter,
         };
     },
 };

@@ -303,8 +303,8 @@ export default {
         onBeforeRouteUpdate((to, from, next) => {
             getBook(to.params.id).then(() => {
                 getChaptersByBookId(bookDetail.value.id);
+                next();
             });
-            next();
         });
 
         const books = computed(() => latestBooks.value.slice(0, 6));

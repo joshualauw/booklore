@@ -127,9 +127,6 @@
             </h1>
             <h3 class="text-sm text-slate-500 mt-1 mb-5">
                 {{ userProfile.writings.length }} public
-                <span v-if="user.id == userProfile.id">
-                    - {{ userProfile.draft.length }} drafts (only you can see)
-                </span>
             </h3>
             <div class="flex flex-col space-y-8">
                 <book-cols v-if="!isLoading" :books="userWritings"></book-cols>
@@ -139,6 +136,7 @@
 </template>
 
 <script>
+import { ref } from "@vue/reactivity";
 import { onBeforeRouteUpdate, useRouter } from "vue-router";
 import useAuth from "../../compossable/auth";
 import useFollows from "../../compossable/follows";
@@ -161,6 +159,7 @@ export default {
         const { user } = useAuth();
         const { followUser, unfollowUser, isFollowed, readFollowerNotify } =
             useFollows();
+        const writingLoading = ref(false);
 
         const router = useRouter();
 
@@ -171,11 +170,12 @@ export default {
         getUser(props.id).then(() => {
             getUserWritings(userProfile.value.id);
         });
+
         onBeforeRouteUpdate((to, from, next) => {
             getUser(to.params.id).then(() => {
                 getUserWritings(userProfile.value.id);
+                next();
             });
-            next();
         });
 
         return {

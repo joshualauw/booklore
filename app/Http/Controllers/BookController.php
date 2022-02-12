@@ -25,7 +25,13 @@ class BookController extends Controller
     public function byUser(Request $request, $id)
     {
         $user = User::find($id);
-        $userWritings = BookResource::collection($user->books);
+        if ($request->queryAll) {
+            $userWritings = BookResource::collection($user->books);
+        } else {
+            $userWritings = BookResource::collection($user->books()->whereHas("chapters", function (Builder $query) {
+                $query->where('isPublic', true);
+            })->get());
+        }
         return response($userWritings);
     }
 

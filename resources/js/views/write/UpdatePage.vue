@@ -140,7 +140,6 @@ export default {
 
         if (props.id) {
             getBook(props.id).then(() => {
-                console.log(bookDetail.value);
                 newTitle.value = bookDetail.value.title;
                 newDescription.value = bookDetail.value.description;
                 for (let i in bookDetail.value.tags) {

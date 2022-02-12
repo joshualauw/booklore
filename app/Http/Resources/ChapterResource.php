@@ -18,7 +18,8 @@ class ChapterResource extends JsonResource
             "id" => $this->id,
             "title" => $this->title,
             "views" => $this->votes()->where('isView', true)->count(),
-            "votes" => $this->votes()->where('isVote', true)->count()
+            "votes" => $this->votes()->where('isVote', true)->count(),
+            "isPublic" => $this->isPublic
         ];
     }
 }
