@@ -8,6 +8,7 @@ import useAuth from "./compossable/auth.js";
 import axios from "axios";
 import useBooks from "./compossable/books.js";
 import useTags from "./compossable/tags.js";
+import useLibrary from "./compossable/library.js";
 
 export default {
     setup() {
@@ -18,6 +19,7 @@ export default {
             getHighlyRatedBooks,
             getBookByTitle,
         } = useBooks();
+        const { getUserLibrary } = useLibrary();
         const { getTags } = useTags();
 
         getTags().then(() => {
@@ -33,12 +35,12 @@ export default {
         const userInfo = sessionStorage.getItem("user");
         if (userInfo) {
             const userData = JSON.parse(userInfo);
-            // sessionStorage.setItem("user", JSON.stringify(userData));
             user.value = userData.user;
-            const updatedUser = sessionStorage.getItem("updatedUser");
-            if (updatedUser) {
-                user.value = JSON.parse(updatedUser);
-            }
+            // const updatedUser = sessionStorage.getItem("updatedUser");
+            // console.log(updatedUser);
+            // if (updatedUser) {
+            //     user.value = JSON.parse(updatedUser);
+            // }
             axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`;
         }
         axios.interceptors.response.use(

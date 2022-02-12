@@ -22,6 +22,7 @@ class BookResource extends JsonResource
             "description" => $this->description,
             "image" => $this->image,
             "chapterLastUpdate" => Chapter::orderBy("created_at", "desc")->pluck("created_at")->first()->diffForHumans(),
+            "firstChapter" => $this->chapters()->where("isPublic", true)->orderBy('created_at', "asc")->pluck("id")->first(),
             "chapters" => $this->chapters()->where("isPublic", true)->count(),
             "views" => collect($this->chapters)->map(function ($chapter) {
                 return $chapter->votes()->where("isView", 1)->count();

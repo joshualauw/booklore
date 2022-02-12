@@ -101,11 +101,15 @@
                             {{ limitText(bookDetail.description, 350) }}
                         </p>
                         <div class="flex space-x-1 w-full mt-4">
-                            <button
-                                class="px-5 py-2 text-white bg-black w-4/5 font-semibold rounded-l-full hover:opacity-80"
+                            <router-link
+                                :to="{
+                                    name: 'chapterRead',
+                                    params: { id: bookDetail.firstChapter },
+                                }"
+                                class="px-5 py-2 text-white text-center bg-black w-4/5 font-semibold rounded-l-full hover:opacity-80"
                             >
                                 Start Reading
-                            </button>
+                            </router-link>
                             <button
                                 v-if="!user"
                                 @click="openDialog"

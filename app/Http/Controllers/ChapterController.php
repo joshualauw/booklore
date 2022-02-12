@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ChapterResource;
+use App\Http\Resources\ChapterTextResource;
 use App\Models\Book;
 use App\Models\Chapter;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class ChapterController extends Controller
     public function show(Request $request, $id)
     {
         $chapter = Chapter::find($id);
-        return response($chapter);
+        return response(new ChapterTextResource($chapter));
     }
 
     public function update(Request $request, $id)

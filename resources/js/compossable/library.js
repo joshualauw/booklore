@@ -16,8 +16,6 @@ export default function useLibrary() {
             );
             user.value.library.push(res.data);
             getUserLibrary();
-            sessionStorage.setItem("updatedUser", JSON.stringify(user.value));
-            libraryLoading.value = false;
             alert("book added to library!");
         } catch (err) {
             console.log("Error at libraryProvider: " + err);
@@ -41,10 +39,6 @@ export default function useLibrary() {
                     }
                 }
                 getUserLibrary();
-                sessionStorage.setItem(
-                    "updatedUser",
-                    JSON.stringify(user.value)
-                );
                 libraryLoading.value = false;
             } catch (err) {
                 console.log("Error at libraryProvider: " + err);

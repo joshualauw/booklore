@@ -100,11 +100,15 @@
                         </div>
                     </div>
                     <div class="flex space-x-1">
-                        <button
-                            class="px-5 py-2 text-white bg-black w-4/5 font-semibold mt-8 rounded-l-full hover:opacity-80"
+                        <router-link
+                            :to="{
+                                name: 'chapterRead',
+                                params: { id: bookDetail.firstChapter },
+                            }"
+                            class="px-5 py-2 text-white text-center bg-black w-4/5 font-semibold mt-8 rounded-l-full hover:opacity-80"
                         >
                             Start Reading
-                        </button>
+                        </router-link>
                         <button
                             v-if="!user"
                             @click="openDialog"
@@ -212,13 +216,17 @@
                             {{ bookDetail.chapterLastUpdate }}</span
                         >
                     </div>
-                    <p
+                    <router-link
                         v-for="chapter in bookChapters"
                         :key="chapter.id"
-                        class="my-1 text-lg p-2 hover:bg-lightgray cursor-pointer rounded-lg"
+                        :to="{
+                            name: 'chapterRead',
+                            params: { id: chapter.id },
+                        }"
+                        class="my-1 text-lg p-2 block hover:bg-lightgray cursor-pointer rounded-lg"
                     >
                         {{ chapter.title }}
-                    </p>
+                    </router-link>
                 </div>
             </div>
             <div class="flex flex-col w-full md:w-1/3">

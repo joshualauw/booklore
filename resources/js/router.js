@@ -11,6 +11,7 @@ import WritePage from "./views/write/WritePage.vue";
 import WriteNewPage from "./views/write/WriteNewPage.vue";
 import UpdatePage from "./views/write/UpdatePage.vue";
 import ChapterEdit from "./views/chapter/ChapterEdit.vue";
+import ChapterRead from "./views/chapter/ChapterRead.vue";
 import NotFound from "./views/NotFoundPage.vue";
 
 const routes = [
@@ -67,6 +68,12 @@ const routes = [
                 meta: {
                     auth: true,
                 },
+            },
+            {
+                path: "/chapter/:id",
+                component: ChapterRead,
+                name: "chapterRead",
+                props: true,
             },
             {
                 path: "/library",

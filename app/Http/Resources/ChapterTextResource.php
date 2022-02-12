@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ChapterResource extends JsonResource
+class ChapterTextResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,6 +17,9 @@ class ChapterResource extends JsonResource
         return [
             "id" => $this->id,
             "title" => $this->title,
+            "views" => $this->votes()->where('isView', true)->count(),
+            "votes" => $this->votes()->where('isVote', true)->count(),
+            "text" => $this->text,
             "isPublic" => $this->isPublic
         ];
     }
